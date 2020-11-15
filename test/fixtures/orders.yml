@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pst: 1.5
+  gst: 1.5
+  hst: 1.5
+  order_date: 2020-11-15 13:34:24
+  customer: one
+
+two:
+  pst: 1.5
+  gst: 1.5
+  hst: 1.5
+  order_date: 2020-11-15 13:34:24
+  customer: two
