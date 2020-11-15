@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_193424) do
+ActiveRecord::Schema.define(version: 2020_11_15_194136) do
 
   create_table "authors", force: :cascade do |t|
     t.string "author_key"
@@ -34,6 +34,19 @@ ActiveRecord::Schema.define(version: 2020_11_15_193424) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_book_authors_on_author_id"
     t.index ["book_id"], name: "index_book_authors_on_book_id"
+  end
+
+  create_table "book_items", force: :cascade do |t|
+    t.string "price"
+    t.string "quantiy"
+    t.integer "book_id", null: false
+    t.integer "customer_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_book_items_on_book_id"
+    t.index ["customer_id"], name: "index_book_items_on_customer_id"
+    t.index ["order_id"], name: "index_book_items_on_order_id"
   end
 
   create_table "books", force: :cascade do |t|
@@ -97,6 +110,9 @@ ActiveRecord::Schema.define(version: 2020_11_15_193424) do
 
   add_foreign_key "book_authors", "authors"
   add_foreign_key "book_authors", "books"
+  add_foreign_key "book_items", "books"
+  add_foreign_key "book_items", "customers"
+  add_foreign_key "book_items", "orders"
   add_foreign_key "books", "categories"
   add_foreign_key "customers", "provinces"
   add_foreign_key "orders", "customers"
