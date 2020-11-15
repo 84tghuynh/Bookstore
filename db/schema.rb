@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_054439) do
+ActiveRecord::Schema.define(version: 2020_11_15_185502) do
 
   create_table "authors", force: :cascade do |t|
     t.string "author_key"
@@ -60,7 +60,23 @@ ActiveRecord::Schema.define(version: 2020_11_15_054439) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "email"
+    t.string "password"
+    t.integer "type"
+    t.string "street_address"
+    t.string "country"
+    t.string "postalcode"
+    t.string "latitude"
+    t.string "longitude"
+    t.integer "province_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["province_id"], name: "index_customers_on_province_id"
+  end
+
   add_foreign_key "book_authors", "authors"
   add_foreign_key "book_authors", "books"
   add_foreign_key "books", "categories"
+  add_foreign_key "customers", "provinces"
 end
