@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_031100) do
+ActiveRecord::Schema.define(version: 2020_11_16_031747) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -104,7 +104,6 @@ ActiveRecord::Schema.define(version: 2020_11_16_031100) do
     t.string "password"
     t.integer "type"
     t.string "street_address"
-    t.string "country"
     t.string "postalcode"
     t.string "latitude"
     t.string "longitude"
