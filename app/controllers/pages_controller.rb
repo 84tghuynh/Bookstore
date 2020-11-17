@@ -1,7 +1,9 @@
 class PagesController < ApplicationController
-  def about
+  def index
+    @pages = Page.all
   end
 
-  def contact
-  end
+  def about; end
+
+  def contact; end
 end
