@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_144234) do
+ActiveRecord::Schema.define(version: 2020_11_17_153159) do
 
   create_table "abouts", force: :cascade do |t|
     t.text "title"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_144234) do
 
   create_table "books", force: :cascade do |t|
     t.string "isbn"
+    t.float "price"
     t.string "title"
     t.text "description"
     t.string "publisher"
@@ -114,7 +115,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_144234) do
     t.integer "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "price"
     t.index ["category_id"], name: "index_books_on_category_id"
   end
 
@@ -133,7 +133,10 @@ ActiveRecord::Schema.define(version: 2020_11_17_144234) do
   end
 
   create_table "customers", force: :cascade do |t|
+    t.string "name"
     t.string "email"
+    t.string "encrypted_pass"
+    t.integer "customer_type"
     t.string "street_address"
     t.string "postalcode"
     t.string "latitude"
@@ -141,9 +144,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_144234) do
     t.integer "province_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.string "encrypted_pass"
-    t.integer "customer_type"
     t.index ["province_id"], name: "index_customers_on_province_id"
   end
 
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_144234) do
     t.float "hst"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name_abbrev"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
