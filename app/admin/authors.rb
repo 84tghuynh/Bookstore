@@ -5,13 +5,14 @@ ActiveAdmin.register Author do
   # Uncomment all parameters which should be permitted for assignment
   #
   # permit_params :author_key, :name, :personal_name, :bio, :cover_s, :cover_m, :cover_l
-  permit_params :author_key, :name, :personal_name, :bio
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:author_key, :name, :personal_name, :bio, :cover_s, :cover_m, :cover_l]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params :author_key, :name, :personal_name, :bio, :image
+
+  form do |f|
+    f.semantic_errors # shows errors on :base
+    f.inputs          # builds an input field for every attribute
+    f.inputs do
+      f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, size: "200") : ""
+    end
+    f.actions         # adds the 'Submit' and 'Cancel' buttons
+  end
 end
