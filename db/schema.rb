@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_153854) do
+ActiveRecord::Schema.define(version: 2020_11_17_193606) do
 
   create_table "abouts", force: :cascade do |t|
     t.text "title"
@@ -158,14 +158,22 @@ ActiveRecord::Schema.define(version: 2020_11_17_153854) do
     t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
+  create_table "pages", force: :cascade do |t|
+    t.text "title"
+    t.text "content"
+    t.string "page_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.string "name"
+    t.string "name_abbrev"
     t.float "pst"
     t.float "gst"
     t.float "hst"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name_abbrev"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
