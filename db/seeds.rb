@@ -9,6 +9,8 @@
 require "open-uri"
 require "json"
 
+require "csv"
+
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 def link_fetch(link)
@@ -154,17 +156,22 @@ def create_customer_faker
   puts "Creates 100 customer"
 
   100.times do
-    Customer.create(name:           Faker::Name.unique.name,
-                    street_address: Faker::Address.unique.street_name,
-                    state:          Faker::Address.state,
-                    country:        Faker::Address.country,
-                    postcode:       Faker::Address.postcode,
-                    latitude:       Faker::Address.latitude,
-                    longtitude:     Faker::Address.longitude)
+    random_offset = rand(13)
+    province = Province.offset(random_offset).first
+    next unless province&.valid?
+
+    # Find the isbn or create a new one with a
+    province.customers.create(name:           Faker::Name.unique.name,
+                              email:          Faker::Internet.unique.email,
+                              customer_type:  0,
+                              street_address: Faker::Address.unique.street_name,
+                              postalcode:     Faker::Address.postcode,
+                              latitude:       Faker::Address.latitude,
+                              longitude:      Faker::Address.longitude)
   end
 end
 
-# create_customer_faker
+create_customer_faker
 #################################################################################################
 #
 #   Create_RentalBook =============> Create BookItems  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -245,6 +252,33 @@ def create_bookauthors
   end
 end
 
+def create_provinces
+  filename = Rails.root.join("db/province.csv")
+
+  puts "Loading Products from CSV file: #{filename}"
+
+  csv_data = File.read(filename)
+
+  provinces = CSV.parse(csv_data, headers: true, encoding: "iso-8859-1")
+
+  # puts "Initial Products  #{Product.count}"
+  # puts "Intital Categories #{Category.count}"
+
+  provinces.each do |p|
+    Province.create(
+      name:        p["name"],
+      name_abbrev: p["name_abbrev"],
+      pst:         Faker::Number.between(from: 5, to: 15) * 0.01,
+      gst:         Faker::Number.between(from: 5, to: 15) * 0.01,
+      hst:         Faker::Number.between(from: 5, to: 15) * 0.01
+    )
+  end
+
+  puts "Provinces #{Province.count}"
+end
+
+# create_provinces
+
 # BookAuthor.delete_all
 # RentalBook.delete_all
 # Book.delete_all
@@ -254,13 +288,15 @@ end
 ####################################################
 #  How to populate the data
 ####################################################
-# Step 1: Populates 10 Categories - To prepare category_id for Step 3
+# Step 1: Populates 10 Categories - To prepare category_id for Step 4
 # create_category_faker
 
-# Step 2: Populates 100 Customers - To prepare customer_id for step 4
+# Step 2: create_provinces - To prepare province_id for Create Customers step 3
+
+# Step 3: Populates 100 Customers - To prepare customer_id for step 5
 # create_customer_faker
 
-# Step 3:  Populates books, authors, bookauthors
+# Step 4:  Populates books, authors, bookauthors
 
 ########################################
 #  Endpoints
@@ -273,5 +309,5 @@ end
 
 # get_create_books_authors
 
-# Step 4: Populates RentalBooks
+# Step 5: Populates RentalBooks
 # create_rentalbook
