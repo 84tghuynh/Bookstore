@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_140706) do
+ActiveRecord::Schema.define(version: 2020_11_17_141202) do
 
   create_table "abouts", force: :cascade do |t|
     t.text "title"
@@ -142,6 +142,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_140706) do
     t.integer "province_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "encrypted_password"
     t.index ["province_id"], name: "index_customers_on_province_id"
   end
 
