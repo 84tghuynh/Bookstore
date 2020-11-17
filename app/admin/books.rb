@@ -5,13 +5,15 @@ ActiveAdmin.register Book do
   # Uncomment all parameters which should be permitted for assignment
   #
   # permit_params :isbn, :title, :description, :publisher, :publish_date, :number_of_pages, :book_url, :cover_s, :cover_m, :cover_l, :category_id
-  permit_params :isbn, :title, :price, :description, :publisher, :publish_date, :number_of_pages, :category_id
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:isbn, :title, :description, :publisher, :publish_date, :number_of_pages, :book_url, :cover_s, :cover_m, :cover_l, :category_id]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
+  permit_params :isbn, :title, :price, :description, :publisher, :publish_date, :number_of_pages, :category_id, :image
+
+  form do |f|
+    f.semantic_errors # shows errors on :base
+    f.inputs          # builds an input field for every attribute
+    f.inputs do
+      f.input :image, as: :file, hint: f.object.image.present? ? image_tag(f.object.image, size: "200") : ""
+    end
+    f.actions         # adds the 'Submit' and 'Cancel' buttons
+  end
+
 end
