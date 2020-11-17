@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_113437) do
+ActiveRecord::Schema.define(version: 2020_11_17_140706) do
 
   create_table "abouts", force: :cascade do |t|
     t.text "title"
@@ -134,7 +134,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_113437) do
 
   create_table "customers", force: :cascade do |t|
     t.string "email"
-    t.string "password"
     t.integer "type"
     t.string "street_address"
     t.string "postalcode"
