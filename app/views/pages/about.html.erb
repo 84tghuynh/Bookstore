@@ -1,2 +1,49 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+<div class="container">
+<div class="row">
+    <div class="col-sm">
+      <h2 class="text-primary">About</h2>
+    </div>
+</div>
+
+
+<% @page.each do |p|%>
+  <div class="row">
+    <div class="col-sm">
+      <h3 class="text-info"><%=p.title%></h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <p><%=p.content%></p>
+    </div>
+  </div>
+  <% if p.image.present? %>
+    <%=link_to image_tag(p.image, alt: "No Image", class: "card-img-top") %>
+  <% end %>
+
+<%end%>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

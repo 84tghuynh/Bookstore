@@ -3,7 +3,11 @@ class PagesController < ApplicationController
     @pages = Page.all
   end
 
-  def about; end
+  def about
+    @page = Page.where("page_type = ?", "about").limit(1)
+  end
 
-  def contact; end
+  def contact
+    @page = Page.where("page_type = ?", "contact").limit(1)
+  end
 end
