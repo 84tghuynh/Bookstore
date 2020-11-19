@@ -5,7 +5,7 @@ ActiveAdmin.register Author do
   # Uncomment all parameters which should be permitted for assignment
   #
   # permit_params :author_key, :name, :personal_name, :bio, :cover_s, :cover_m, :cover_l
-  permit_params :author_key, :name, :personal_name, :bio, :image
+  permit_params :author_key, :name, :personal_name, :bio, :cover_s, :cover_m, :cover_l, :image
 
   form do |f|
     f.semantic_errors # shows errors on :base

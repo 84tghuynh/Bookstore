@@ -5,7 +5,7 @@ ActiveAdmin.register Book do
   # Uncomment all parameters which should be permitted for assignment
   #
   # permit_params :isbn, :title, :description, :publisher, :publish_date, :number_of_pages, :book_url, :cover_s, :cover_m, :cover_l, :category_id
-  permit_params :isbn, :title, :price, :description, :publisher, :publish_date, :number_of_pages, :category_id, :image
+  permit_params :isbn, :title, :price, :description, :publisher, :publish_date, :number_of_pages, :book_url, :cover_s, :cover_m, :cover_l, :category_id, :image
 
   form do |f|
     f.semantic_errors # shows errors on :base
@@ -15,5 +15,4 @@ ActiveAdmin.register Book do
     end
     f.actions         # adds the 'Submit' and 'Cancel' buttons
   end
-
 end
