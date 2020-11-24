@@ -1,0 +1,65 @@
+
+<div class="container pb-5">
+<h6 class="h6 text-primary"><span class="bg-light"><%=link_to "Back to all Books", books_path ,class:"text-danger" %></span></h6>
+<h2 class="h2 text-primary"><%= @book.title %></h2>
+  <div class="row">
+    <div class="col-3">
+      <% if @book.cover_l != ''%>
+        <img src="<%= @book.cover_l  %>" class="img-fluid rounded" alt="Cover Large Image">
+      <% else %>
+        <%= image_tag "no_image.png",  alt: "No Image", class: "img-fluid rounded" %>
+      <% end %>
+    </div>
+  <div class="col-9">
+      <h5 class="h5 text-dark">isbn</h5>
+      <p class="text-info"><%= @book.isbn%></p>
+
+      <h5 class="h5 text-dark">Publisher</h5>
+      <p class="text-info"><%= @book.publisher%></p>
+
+      <h5 class="h5 text-dark">Publish Date</h5>
+      <p class="text-info"><%= @book.publish_date%></p>
+
+      <h5 class="h5 text-dark">Number of Pages</h5>
+      <p class="text-info"><%= @book.number_of_pages%></p>
+
+      <h5 class="h5 text-dark">Category</h5>
+      <p class="text-info"><%#= link_to @book.category.name, @book.category, class:"text-success" %></p>
+
+      <h5 class="h5 text-dark">Authors</h5>
+      <p class="text-info">
+           <%# @book.authors.each_with_index do |author, i| %>
+              <%# if i == 0 %>
+                  <%#= link_to author.name, author ,class:"text-success" %>
+              <%# else %>
+                  , <%#= link_to author.name, author ,class:"text-success" %>
+              <%# end %>
+          <%# end %>
+      </p>
+
+      <h5 class="h5 text-dark">Customers</h5>
+      <p class="text-info">
+           <%# @book.customers.each_with_index do |customer, i| %>
+              <%# if i == 0 %>
+                  <%#= link_to customer.name, customer ,class:"text-success" %>
+              <%# else %>
+                  , <%#= link_to customer.name, customer ,class:"text-success" %>
+              <%# end %>
+          <%# end %>
+      </p>
+
+      <h5 class="h5 text-dark">Description</h5>
+       <% if @book.description %>
+        <p class="text-info"><%= @book.description%></p>
+      <% else %>
+        <p class="text-info">No Description for this book. Please click "READ BOOK" button for details</p>
+      <% end %>
+
+
+      <a href="<%= @book.book_url%>" target="_blank" class="btn btn-primary">Read Book</a>
+    </div>
+  </div>
+</div>
+
+
+
