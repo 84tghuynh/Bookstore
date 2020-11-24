@@ -32,7 +32,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem 'activeadmin'   # Admin Dashboard as a Rail Engine
 gem 'devise'        # Username and Password Authentication Library
 
-gem 'pagy', '~> 3.5'
+gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
