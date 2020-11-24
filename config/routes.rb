@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'books/index'
+  get 'books/show'
   root to: "pages#index"
   get "pages/about", to: "pages#about", as: "about"
   get "pages/contact", to: "pages#contact", as: "contact"
