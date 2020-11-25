@@ -2,13 +2,9 @@
 <div class="container">
 
 <% @page.each do |p|%>
+
   <div class="row">
-    <div class="col-sm">
-      <h3 class="text-primary"><%=p.title%></h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm">
+    <div class="col-sm-3">
       <p><%=p.content%></p>
     </div>
   </div>

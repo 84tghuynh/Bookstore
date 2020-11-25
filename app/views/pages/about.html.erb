@@ -1,10 +1,4 @@
 <div class="container">
-<div class="row">
-    <div class="col-sm">
-      <h2 class="text-primary">About</h2>
-    </div>
-</div>
-
 
 <% @page.each do |p|%>
   <div class="row">
@@ -13,13 +7,19 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm">
-      <p><%=p.content%></p>
+    <div class="col-sm-11">
+      <div class="d-flex justify-content-center">
+        <p><%=p.content%></p>
+      </div>
     </div>
   </div>
-  <% if p.image.present? %>
-    <%=link_to image_tag(p.image, alt: "No Image", class: "card-img-top") %>
-  <% end %>
+  <div class="row">
+    <div class="col-sm-12">
+        <% if p.image.present? %>
+            <%=link_to image_tag(p.image, alt: "No Image", class: "card-img-top") %>
+        <% end %>
+    </div>
+  </div>
 
 <%end%>
 
