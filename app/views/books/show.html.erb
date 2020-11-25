@@ -1,7 +1,11 @@
 
 <div class="container pb-5">
-<h6 class="h6 text-primary"><span class="bg-light"><%=link_to "Back to all Books", books_path ,class:"text-danger" %></span></h6>
-<h2 class="h2 text-primary"><%= @book.title %></h2>
+<h6 class="h6 text-primary">
+  <button type="button" class="btn bg-primary">
+      <span class="text-white" aria-hidden="true"><%= link_to "Back", books_path, class: "text-white" %></span>
+  </button>
+</h6>
+<h2 class="h2 text-success"><%= @book.title %></h2>
   <div class="row">
     <div class="col-3">
       <% if @book.cover_l != ''%>
@@ -11,7 +15,7 @@
       <% end %>
     </div>
   <div class="col-9">
-      <h5 class="h5 text-dark">isbn</h5>
+      <h5 class="h5 text-dark">ISBN</h5>
       <p class="text-info"><%= @book.isbn%></p>
 
       <h5 class="h5 text-dark">Publisher</h5>
@@ -24,28 +28,28 @@
       <p class="text-info"><%= @book.number_of_pages%></p>
 
       <h5 class="h5 text-dark">Category</h5>
-      <p class="text-info"><%#= link_to @book.category.name, @book.category, class:"text-success" %></p>
+      <p class="text-info"><%= @book.category.name %></p>
 
       <h5 class="h5 text-dark">Authors</h5>
       <p class="text-info">
-           <%# @book.authors.each_with_index do |author, i| %>
-              <%# if i == 0 %>
-                  <%#= link_to author.name, author ,class:"text-success" %>
-              <%# else %>
-                  , <%#= link_to author.name, author ,class:"text-success" %>
-              <%# end %>
-          <%# end %>
+          <% @book.authors.each_with_index do |author, i| %>
+              <% if i == 0 %>
+                  <%= author.name %>
+              <% else %>
+                  , <%= author.name %>
+              <% end %>
+          <% end %>
       </p>
 
       <h5 class="h5 text-dark">Customers</h5>
       <p class="text-info">
-           <%# @book.customers.each_with_index do |customer, i| %>
-              <%# if i == 0 %>
-                  <%#= link_to customer.name, customer ,class:"text-success" %>
-              <%# else %>
-                  , <%#= link_to customer.name, customer ,class:"text-success" %>
-              <%# end %>
-          <%# end %>
+           <% @book.customers.each_with_index do |customer, i| %>
+              <% if i == 0 %>
+                  <%= customer.name %>
+              <% else %>
+                  , <%= customer.name %>
+              <% end %>
+          <% end %>
       </p>
 
       <h5 class="h5 text-dark">Description</h5>
