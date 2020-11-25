@@ -11,6 +11,9 @@ class BooksController < ApplicationController
 
   def search
     wildcard_search = "%#{params[:keywords]}%"
+
+    @category = (Category.find(params[:category]) if params[:category].to_s != "0")
+
     category_search = params[:category].to_s
 
     @pagy1, @books = pagy(if category_search == "0"
