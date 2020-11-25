@@ -3,15 +3,26 @@
 <div class="row">
 
   <div class="col-md-3">
-      <div class="row border border-primary rounded-top">
-        <a class="dropdown-item" href="#">Regular link</a>
-      </div>
-      <div class="row border-left border-right border-primary">
-        <a class="dropdown-item active" href="#">Active link</a>
-      </div>
-      <div class="row border border-primary rounded-bottom">
-        <a class="dropdown-item" href="#">Another link</a>
-      </div>
+    <% @categories.each_with_index do |category, i|%>
+      <% if i == 0 %>
+          <div class="row border border-primary rounded-top ">
+            <%= link_to category.name, category, class: "dropdown-item #{current_page?(category) ? 'active' : 'aaa' } " %>
+          </div>
+      <% elsif i < @categories.count-1 %>
+          <div class="row border-left border-right border-bottom border-primary ">
+            <%= link_to category.name, category, class:"dropdown-item" %>
+          </div>
+      <% else%>
+          <div class="row border-left border-right border-bottom border-primary rounded-bottom">
+            <%= link_to category.name, category, class:"dropdown-item" %>
+          </div>
+
+      <% end %>
+    <% end %>
+
+
+
+
 
   </div>
   <div class="col-md-9">
@@ -32,7 +43,7 @@
                       <% else %>
                         <%=link_to image_tag("no_image.png", class: "card-img-top rounded", alt:"No Image") , book %>
                       <% end %>
-                      <div class="card-body">
+                      <div class="card-body ">
                         <h6 class="card-title text-uppercase"><%=link_to book.title, book ,class:"text-success" %></h6>
                         <div class="card-text normal"><span class="font-weight-bold">Price:</span> $<%= book.price %></div>
                         <div class="card-text font-weight-normal">
@@ -69,3 +80,8 @@
 </div>
 
 </div>
+<li class="<%= current_page?(root_path)? 'active' : '' %>">
+  <%= link_to "Home", root_path %>
+</li>
+
+

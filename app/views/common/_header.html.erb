@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded mb-3">
   <div class="navbar-nav">
-      <%= link_to 'Home', root_path, class:"nav-link active  text-uppercase" %>
-      <%= link_to 'About', about_path, class:"nav-link text-uppercase" %>
-      <%= link_to 'Contact us', contact_path, class:"nav-link text-uppercase" %>
+      <%= link_to 'Home', root_path, class:"nav-link text-uppercase #{current_page?(root_path) ? 'active font-weight-bold' : '' }" %>
+      <%= link_to 'About', about_path, class:"nav-link text-uppercase  #{current_page?(about_path) ? 'active font-weight-bold' : '' }" %>
+      <%= link_to 'Contact us', contact_path, class:"nav-link text-uppercase #{current_page?(contact_path) ? 'active font-weight-bold' : '' }" %>
       <%= link_to 'Admin Page', admin_root_path, target: "_blank", class:"nav-link text-uppercase" %>
   </div>
   <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
