@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_181109) do
+ActiveRecord::Schema.define(version: 2020_11_29_183539) do
 
   create_table "abouts", force: :cascade do |t|
     t.text "title"
@@ -102,7 +102,8 @@ ActiveRecord::Schema.define(version: 2020_11_29_181109) do
 
   create_table "books", force: :cascade do |t|
     t.string "isbn"
-    t.float "price"
+    t.decimal "price", precision: 12, scale: 2
+    t.decimal "sales", default: "0.0"
     t.string "title"
     t.text "description"
     t.string "publisher"
