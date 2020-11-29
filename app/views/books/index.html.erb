@@ -1,26 +1,7 @@
 <div class="container-md pb-5">
 
 <div class="row">
-
-  <div class="col-md-3">
-    <% @categories.each_with_index do |category, i|%>
-      <% if i == 0 %>
-          <div class="row border border-primary rounded-top ">
-            <%= link_to category.name, category, class: "dropdown-item #{current_page?(category) ? 'active' : 'aaa' } " %>
-          </div>
-      <% elsif i < @categories.count-1 %>
-          <div class="row border-left border-right border-bottom border-primary ">
-            <%= link_to category.name, category, class:"dropdown-item" %>
-          </div>
-      <% else%>
-          <div class="row border-left border-right border-bottom border-primary rounded-bottom">
-            <%= link_to category.name, category, class:"dropdown-item" %>
-          </div>
-
-      <% end %>
-    <% end %>
-
-  </div>
+  <%= render partial: 'common/left_sidebar'%>
   <div class="col-md-9">
 
         <div class="row">

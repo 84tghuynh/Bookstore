@@ -5,7 +5,9 @@ class CategoriesController < ApplicationController
 
   def show
     # @category = Category.find(params[:id])
-    @sales_check = false
+
+    @path_route = category_path
+      @sales_check = false
     @update_check = false
 
     @sales_check = true if params[:on_sale].present?

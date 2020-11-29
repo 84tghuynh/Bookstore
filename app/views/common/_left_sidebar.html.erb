@@ -22,7 +22,7 @@
         <h5 class="text-info text-uppercase font-weight-bolder">Filter</h5>
       </div>
   </div>
-  <%= form_with(url: category_path, method: "get", local: true, class: "form-check") do %>
+  <%= form_with(url: @path_route, method: "get", local: true, class: "form-check") do %>
   <div class="row">
       <div class="col-md-12">
               <%= check_box_tag(:on_sale, 0, @sales_check, class: "form-check-input",  onclick: "this.form.submit();") %>
