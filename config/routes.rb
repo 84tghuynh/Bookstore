@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   # get 'categories/index'
   # get 'categories/show'
-  resources :categories, only: %i[index show]
+  resources :categories, only: %i[index show] do
+    collection do
+      get "filter"
+    end
+  end
 
   # get 'books/index'
   # get 'books/show'
@@ -9,6 +13,7 @@ Rails.application.routes.draw do
   resources :books, only: %i[index show] do
     collection do
       get "search"
+      get "filter"
     end
   end
   # OR

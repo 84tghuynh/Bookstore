@@ -19,7 +19,31 @@
 
       <% end %>
     <% end %>
-
+    <div class="row mt-2">
+        <div class=" col-md-12 dropdown-divider"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <h5 class="text-info text-uppercase font-weight-bolder">Filter</h5>
+        </div>
+    </div>
+    <%= form_with(url: category_path, method: "get", local: true, class: "form-check") do %>
+    <div class="row">
+        <div class="col-md-12">
+                <%= check_box_tag(:on_sale, 0, @sales_check, class: "form-check-input",  onclick: "this.form.submit();") %>
+                <%= label_tag(:on_sale, "On Sales", class: "form-check-label") %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <%= check_box_tag(:last_update, 0, @update_check, class: "form-check-input", onclick: "this.form.submit();") %>
+            <%= label_tag(:last_update, "Last Updates", class: "form-check-label") %>
+        </div>
+    </div>
+    <% end %>
+    <div class="row mt-2">
+        <div class=" col-md-12 dropdown-divider"></div>
+    </div>
   </div>
   <div class="col-md-9">
     <% if @books.count >= 1%>
