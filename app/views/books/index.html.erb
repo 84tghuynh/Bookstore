@@ -13,35 +13,9 @@
         <% @books.each_slice(4) do |batch| %>
           <div class="row my-2">
               <%batch.each do | book | %>
-                <div class= "col-md-3 my-2">
-                    <div class="card">
-                      <% if book.cover_s != ''%>
-                        <%=link_to image_tag(book.cover_m, class: "card-img-top rounded", alt:"Cover Small Image") , book %>
-                      <% else %>
-                        <%=link_to image_tag("no_image.png", class: "card-img-top rounded", alt:"No Image") , book %>
-                      <% end %>
-                      <div class="card-body ">
-                        <h6 class="card-title text-uppercase"><%=link_to book.title, book ,class:"text-success" %></h6>
-                        <div class="card-text normal"><span class="font-weight-bold">Price:</span> $<%= book.price %></div>
-                        <div class="card-text font-weight-normal">
-                      <small>
-                      <span class="font-weight-bold">Author:</span>
-                        <% book.authors.each_with_index do |author, i| %>
-                              <% if i <= 3 %>
-                                <% if i == 0 %>
-                                  <%= author.name %>
-                                <% else %>
-                                    , <%= author.name %>
-                                <% end %>
-                              <% end %>
-                          <% end %>
-                      </small>
-                        </div>
-                        <div class="card-text font-weight-normal"><small><span class="font-weight-bold">ISBN: </span><%= book.isbn %></small></div>
-                        <div class="card-text font-weight-normal"><small><span class="font-weight-bold">Publish date:</span> <%= book.publish_date %></small></div>
-                      </div>
-                    </div>
-                </div>
+
+                <%= render partial: 'book',  locals: { book: book }  %>
+
               <% end %>
           </div>
         <% end %>

@@ -2,6 +2,8 @@ class BooksController < ApplicationController
   def index
     # @pagy, @books = pagy(Book.all, items: 20)
 
+    @not_search = true
+
     @path_route = root_path
     @sales_check = false
     @update_check = false
@@ -34,6 +36,7 @@ class BooksController < ApplicationController
   end
 
   def search
+    @not_search = false
     wildcard_search = "%#{params[:keywords]}%"
 
     @category = (Category.find(params[:category]) if params[:category].to_s != "0")
