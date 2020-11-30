@@ -1,10 +1,9 @@
 
+    <% if current_page?(@book) %>
+       <%= render partial: "common/breadcrumb", locals: {page_1: "Home", page_2:  @book.category.name,  page_3: @book.title, url_path_1: root_path, url_path_2: @book.category , css_class: "active", level: 3}%>
+    <%end%>
+
 <div class="container pb-5">
-<h6 class="h6 text-primary">
-  <button type="button" class="btn bg-primary">
-      <span class="text-white" aria-hidden="true"><%= link_to "Back", books_path, class: "text-white" %></span>
-  </button>
-</h6>
 <h2 class="h2 text-success"><%= @book.title %></h2>
   <div class="row">
     <div class="col-3">

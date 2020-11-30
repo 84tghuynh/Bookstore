@@ -23,3 +23,31 @@
         <%= submit_tag("Search",class:"btn btn-success my-2 ml-2 my-sm-0") %>
   <% end %>
 </nav>
+
+      <% if current_page?(root_path) %>
+        <%= render partial: "common/breadcrumb", locals: {page_1: "Home", page_2: "", page_3: "", url_path_1: root_path, url_path_2: "", css_class: "active", level: 1}%>
+      <% elsif current_page?(about_path) %>
+        <%= render partial: "common/breadcrumb", locals: {page_1: "About", page_2: "", page_3: "", url_path_1: about_path, url_path_2: "", css_class: "active", level: 1}%>
+      <% elsif current_page?(contact_path) %>
+        <%= render partial: "common/breadcrumb", locals: {page_1: "Contact", page_2: "", page_3: "", url_path_1: contact_path, url_path_2: "", css_class: "active", level: 1}%>
+      <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

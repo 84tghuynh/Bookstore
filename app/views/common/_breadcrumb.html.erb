@@ -1,0 +1,41 @@
+<!-- Level1 -->
+<% case level %>
+<% when 1%>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item <%= css_class %>">
+          <%= page_1 %>
+      </li>
+  </ol>
+</nav>
+
+<% when 2%>
+<!-- Level2 -->
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+          <%= link_to page_1, url_path_1 %>
+      </li>
+      <li class="breadcrumb-item <%= css_class %>">
+          <%= page_2%>
+      </li>
+  </ol>
+</nav>
+<% when 3%>
+  <!-- Level3 -->
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+          <%= link_to page_1, url_path_1 %>
+      </li>
+      <li class="breadcrumb-item">
+          <%= link_to page_2, url_path_2%>
+      </li>
+      <li class="breadcrumb-item <%= css_class %>">
+          <%= page_3%>
+      </li>
+  </ol>
+</nav>
+<%end%>
+

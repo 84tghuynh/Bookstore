@@ -1,3 +1,8 @@
+<% @categories.all.each do |category|%>
+    <% if current_page?(category) %>
+       <%= render partial: "common/breadcrumb", locals: {page_1: "Home", page_2: category.name,  page_3: "", url_path_1: root_path, url_path_2: "", css_class: "active", level: 2}%>
+    <%end%>
+<%end%>
 <div class="container-md pb-5">
 
   <div class="row">
