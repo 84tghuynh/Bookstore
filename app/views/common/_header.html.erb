@@ -1,3 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+
+  <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <%# <a class="nav-link active" href="#">Sign in <span class="sr-only">(current)</span></a> %>
+      <% if current_customer %>
+        <%= link_to "Sign Out", destroy_customer_session_path, method: :delete, class: "nav-link active" %>
+        <%= link_to "Edit", edit_customer_registration_path, class: "nav-link" %>
+        <a class="nav-link">
+            <%= current_customer.email  %>,
+            <span>Id: <%=current_customer.id%></span>,
+            <span>Province: <%=current_customer.province.name%></span>
+        </a>
+      <% else %>
+        <%= link_to "Sign In", new_customer_session_path, class: "nav-link active"%>
+        <%= link_to "Sign Up", new_customer_registration_path, class: "nav-link" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded mb-3">
   <div class="navbar-nav">
       <%= link_to 'Home', root_path, class:"nav-link text-uppercase #{ current_page?(root_path) ? 'active font-weight-bold' :

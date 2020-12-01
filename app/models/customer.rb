@@ -7,6 +7,6 @@ class Customer < ApplicationRecord
 
   has_many :book_items
   has_many :books, through: :book_items
-  # validates :email, :name, :street_address, :province, presence: true
+  validates :email, :province, presence: true
   validates :email, uniqueness: true
 end
