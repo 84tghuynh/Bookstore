@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get "customers" => redirect("/")
-  resources :cart, only: %i[create destroy]
+  resources :cart, only: %i[create destroy update index]
 
   devise_for :customers
   # get 'categories/index'
