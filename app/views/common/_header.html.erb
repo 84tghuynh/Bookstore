@@ -18,7 +18,7 @@
 
         <%= link_to root_path, title: "Cart Items: 5", class: "nav-link" do %>
             <%= image_tag("cart.svg", width: 25)%>
-            <sup class="font-weight-bolder text-danger d-inline">5</sup>
+            <sup class="font-weight-bolder text-danger d-inline"><%="#{session[:shopping_cart].count > 0 ? session[:shopping_cart].count : "" }" %></sup>
         <% end %>
 
     </div>

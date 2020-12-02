@@ -14,22 +14,22 @@
       <% end %>
     </div>
   <div class="col-9">
-      <h5 class="h5 text-dark">ISBN</h5>
+      <h6 class="h6 text-dark">ISBN</h6>
       <p class="text-info"><%= @book.isbn%></p>
 
-      <h5 class="h5 text-dark">Publisher</h5>
+      <h6 class="h6 text-dark">Publisher</h6>
       <p class="text-info"><%= @book.publisher%></p>
 
-      <h5 class="h5 text-dark">Publish Date</h5>
+      <h6 class="h6 text-dark">Publish Date</h6>
       <p class="text-info"><%= @book.publish_date%></p>
 
-      <h5 class="h5 text-dark">Number of Pages</h5>
+      <h6 class="h6 text-dark">Number of Pages</h6>
       <p class="text-info"><%= @book.number_of_pages%></p>
 
-      <h5 class="h5 text-dark">Category</h5>
+      <h6 class="h6 text-dark">Category</h6>
       <p class="text-info"><%= @book.category.name %></p>
 
-      <h5 class="h5 text-dark">Authors</h5>
+      <h6 class="h6 text-dark">Authors</h6>
       <p class="text-info">
           <% @book.authors.each_with_index do |author, i| %>
               <% if i == 0 %>
@@ -39,27 +39,29 @@
               <% end %>
           <% end %>
       </p>
-
-      <h5 class="h5 text-dark">Customers</h5>
-      <p class="text-info">
-           <% @book.customers.each_with_index do |customer, i| %>
-              <% if i == 0 %>
-                  <%= customer.name %>
-              <% else %>
-                  , <%= customer.name %>
-              <% end %>
-          <% end %>
-      </p>
-
-      <h5 class="h5 text-dark">Description</h5>
-       <% if @book.description %>
+      <h6 class="h6 text-dark">Description</h6>
+       <% if @book.description.present? %>
         <p class="text-info"><%= @book.description%></p>
       <% else %>
-        <p class="text-info">No Description for this book. Please click "READ BOOK" button for details</p>
+        <p class="text-info">No Description for this book. Please click "READ BOOK" link for details</p>
+      <% end %>
+      <a href="<%= @book.book_url%>" target="_blank" class="badge badge-info">Read Book</a>
+      <br>
+      <div class="dropdown-divider"></div>
+      <h6 class="h6 text-dark">Price</h6>
+      <p class="text-info"> <%= number_to_currency @book.price %></p>
+
+      <% if @book.sales > 0.0099%>
+        <h6 class="h6 text-dark">On Sales:</h6>
+        <p class="text-info"><%= number_to_percentage(@book.sales * 100, precision:0) %></p>
+      <% end%>
+
+      <div class="dropdown-divider"></div>
+      <%= form_with url: cart_index_path do%>
+          <%= hidden_field_tag(:id, @book.id) %>
+          <%= button_tag 'Add to Cart', class:"btn btn-primary mt-sm-2"%>
       <% end %>
 
-
-      <a href="<%= @book.book_url%>" target="_blank" class="btn btn-primary">Read Book</a>
     </div>
   </div>
 </div>

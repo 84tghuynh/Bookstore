@@ -18,10 +18,10 @@ class CategoriesController < ApplicationController
     # @pagy, @books = pagy(Category.find(params[:id]).books, items: 20)
     # true, false
     if @sales_check && !@update_check
-      @pagy, @books = pagy(Category.find(params[:id]).books.where("sales > 0.0"), items: 20)
+      @pagy, @books = pagy(Category.find(params[:id]).books.where("sales > 0.0099"), items: 20)
     # true, true
     elsif @sales_check && @update_check
-      @pagy, @books = pagy(Category.find(params[:id]).books.where("sales > 0.0")
+      @pagy, @books = pagy(Category.find(params[:id]).books.where("sales > 0.0099")
                                                           .where("updated_at >= ?", (Date.today - 3).to_datetime), items: 20)
     # false, true
     elsif !@sales_check && @update_check
