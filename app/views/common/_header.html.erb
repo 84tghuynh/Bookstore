@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-end">
+<nav class="navbar navbar-expand-sm navbar-light bg-light d-flex justify-content-end">
 
   <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
     <div class="navbar-nav">
@@ -15,15 +15,18 @@
         <%= link_to "Sign In", new_customer_session_path, class: "nav-link active"%>
         <%= link_to "Sign Up", new_customer_registration_path, class: "nav-link" %>
       <% end %>
+
+        <%= link_to root_path, title: "Cart Items: 5", class: "nav-link" do %>
+            <%= image_tag("cart.svg", width: 25)%>
+            <sup class="font-weight-bolder text-danger d-inline">5</sup>
+        <% end %>
+
     </div>
   </div>
 </nav>
 
 
-
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded mb-3">
+<nav class="navbar navbar-expand-sm navbar-dark bg-primary rounded mb-3">
   <div class="navbar-nav">
       <%= link_to 'Home', root_path, class:"nav-link text-uppercase #{ current_page?(root_path) ? 'active font-weight-bold' :
                                                                        current_page?(books_path) ? 'active font-weight-bold' :
@@ -36,7 +39,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
   <%= form_with(url: search_books_path, method: "get", local: true, class: "form-inline") do %>
         <%= text_field_tag(:keywords, nil, class: "form-control mr-sm-2", placeholder: "Search Books" ) %>
-        <div class="input-group">
+        <div class="input-group mt-2 mt-sm-2 mt-md-2  mt-lg-0 mt-xl-0">
             <select class="custom-select" id="categorySelect" name="category">
               <option value="0">All</option>
               <%= options_from_collection_for_select(Category.all, :id, :name) %>
@@ -45,7 +48,7 @@
               <label class="input-group-text" for="categorySelect">Categories</label>
             </div>
         </div>
-        <%= submit_tag("Search",class:"btn btn-success my-2 ml-2 my-sm-0") %>
+        <%= submit_tag("Search",class:"btn btn-success ml-sm-0 ml-md-2 ml-lg-0 ml-xl-2 mt-sm-2 mt-md-2 mt-2 mt-lg-2 mt-xl-0") %>
   <% end %>
 </nav>
 
