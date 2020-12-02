@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :initialize_session
   helper_method :cart
   helper_method :list_book_items
-  helper_method :items_quantity
+  helper_method :items_quantity, :total_price
 
   protected
 
@@ -48,5 +48,19 @@ class ApplicationController < ActionController::Base
       quantity += item["quantity"]
     end
     quantity
+  end
+
+  def total_price
+    total = 0
+    session[:shopping_cart].map do |item|
+      @book = Book.find(item["id"])
+
+      if @book.sales > 0.0099
+        total = total + item["quantity"] * @book.price * (1 - @book.sales)
+      else
+        total = total + item["quantity"] * @book.price
+      end
+    end
+    total
   end
 end
