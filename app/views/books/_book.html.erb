@@ -7,23 +7,51 @@
       <% end %>
       <div class="card-body ">
         <h6 class="card-title text-uppercase"><%=link_to book.title, book ,class:"text-success" %></h6>
-        <div class="card-text normal"><span class="font-weight-bold">Price:</span> $<%= book.price %></div>
+        <div class="card-text normal"><span class="font-weight-bold">Price:</span> <%= number_to_currency book.price %></div>
+        <% if book.sales > 0.0099%>
+          <div class="card-text normal"><span class="font-weight-bold">On Sales:</span> <%= number_to_percentage(book.sales * 100, precision:0) %></div>
+        <% end%>
         <div class="card-text font-weight-normal">
-      <small>
-      <span class="font-weight-bold">Author:</span>
-        <% book.authors.each_with_index do |author, i| %>
-              <% if i <= 3 %>
-                <% if i == 0 %>
-                  <%= author.name %>
-                <% else %>
-                    , <%= author.name %>
+            <small>
+              <span class="font-weight-bold">Author:</span>
+              <% book.authors.each_with_index do |author, i| %>
+                    <% if i <= 3 %>
+                      <% if i == 0 %>
+                        <%= author.name %>
+                      <% else %>
+                          , <%= author.name %>
+                      <% end %>
+                    <% end %>
                 <% end %>
-              <% end %>
-          <% end %>
-      </small>
+            </small>
         </div>
         <div class="card-text font-weight-normal"><small><span class="font-weight-bold">ISBN: </span><%= book.isbn %></small></div>
         <div class="card-text font-weight-normal"><small><span class="font-weight-bold">Publish date:</span> <%= book.publish_date %></small></div>
+
+        <% if list_book_items.include?(book) %>
+          <%= button_to cart_path(book), method: :delete,  class:"btn btn-primary mt-sm-2" do%>
+              Remove from Cart
+          <% end %>
+        <% else %>
+            <%= form_with url: cart_index_path, method: :post do%>
+                <%= hidden_field_tag("id", book.id, :id => book.id  ) %>
+                <%= button_tag 'Add to Cart', class:"btn btn-primary mt-sm-2"%>
+            <% end %>
+        <% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
 </div>
