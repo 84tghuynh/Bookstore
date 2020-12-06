@@ -28,9 +28,43 @@ class CheckoutController < ApplicationController
 
     if params[:selected] == "none"
       # Update or Create Customer
-
+      create_customer(email, province_id, name, street_address, postalcode)
     end
 
     redirect_to checkout_index_path
+  end
+
+  def create_customer(email, province_id, name, street_address, postalcode)
+    logger.debug("#########################: email: #{email}, name: #{name}, street_address: #{street_address}, postalcode: #{postalcode} #########################")
+    @customer = Customer.where(email: email).first
+
+    logger.debug("############ Query Customer: #{@customer}")
+
+    if @customer.present?
+      @customer.update(
+        province_id:    province_id,
+        name:           name,
+        street_address: street_address,
+        postalcode:     postalcode
+      )
+    else
+      c = Customer.new(name:           name,
+                       province_id:    province_id,
+                       email:          email,
+                       street_address: street_address,
+                       postalcode:     postalcode)
+      c.save
+
+      o = Order.new(gst:         0.3,
+                    pst:         0.4,
+                    hst:         0.5,
+                    customer_id: 106,
+                    stage_id:    1)
+
+      o.save
+
+      logger.debug("############ Create Customer: #{o}, email: #{o.gst}")
+
+    end
   end
 end
