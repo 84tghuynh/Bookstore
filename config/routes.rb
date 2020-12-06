@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  get 'orders/index'
-  get 'orders/show'
+  get "orders/index"
+  get "orders/show"
   get "customers" => redirect("/")
+  resources :checkout, only: %i[create destroy update index]
   resources :cart, only: %i[create destroy update index]
 
   devise_for :customers

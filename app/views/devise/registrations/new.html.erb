@@ -31,7 +31,7 @@
 
   <div class="form-group">
     <%= f.label :province_id %>
-    <select class="custom-select form-control" id="province_id" name="customer[province_id]">
+    <select class="custom-select form-control" id="customer_province_id" name="customer[province_id]">
        <%= options_from_collection_for_select(Province.all, :id, :name) %>
     </select>
   </div>

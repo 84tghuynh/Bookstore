@@ -1,0 +1,57 @@
+<h2 class="h2 text-success">Shipping</h2>
+<div class="dropdown-divider"></div>
+<%= form_with url: checkout_path(province_checkout), method: :put do |f|%>
+  <%= hidden_field_tag 'selected', 'none'  %>
+  <div class="form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",
+            value: "#{current_customer.present? ? current_customer.email : session[:email]}",
+            class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name %><br />
+    <%= f.text_field :name,
+          value: "#{current_customer.present? ? current_customer.name : session[:name]}",
+    class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+      <%= f.label :province_id %>
+      <select class="form-control" id="province_id" name="province_id" onchange=" provinceSubmit(); this.form.submit();">
+         <%= options_from_collection_for_select(Province.all, :id, :name, selected: province_checkout.id ) %>
+      </select>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :street_address %><br />
+    <%= f.text_field :street_address,
+        value: "#{current_customer.present? ? current_customer.street_address : session[:street_address]}",
+        class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :postalcode %><br />
+    <%= f.text_field :postalcode,
+        value: "#{current_customer.present? ? current_customer.postalcode : session[:postalcode] }",
+        class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Payment", class: "btn btn-success" %>
+  </div>
+<% end %>
+
+
+<script type="text/javascript">
+
+  function emailSubmit()
+  {
+     $("#selected").val("email");
+  }
+
+  function provinceSubmit()
+  {
+     $("#selected").val("province");
+  }
+</script>
