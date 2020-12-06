@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_210358) do
+ActiveRecord::Schema.define(version: 2020_12_06_211049) do
 
   create_table "abouts", force: :cascade do |t|
     t.text "title"
@@ -155,9 +155,9 @@ ActiveRecord::Schema.define(version: 2020_12_06_210358) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.float "pst"
-    t.float "gst"
-    t.float "hst"
+    t.decimal "pst", precision: 5, scale: 2
+    t.decimal "gst", precision: 5, scale: 2
+    t.decimal "hst", precision: 5, scale: 2
     t.datetime "order_date"
     t.integer "customer_id", null: false
     t.datetime "created_at", precision: 6, null: false
