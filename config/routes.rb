@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'orders/index'
+  get 'orders/show'
   get "customers" => redirect("/")
   resources :cart, only: %i[create destroy update index]
 
