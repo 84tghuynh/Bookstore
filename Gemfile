@@ -31,6 +31,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem 'activeadmin'   # Admin Dashboard as a Rail Engine
 gem 'devise'        # Username and Password Authentication Library
+gem 'stripe'
 
 gem 'pagy', '~> 3.5' # omit patch digit and use the latest if possible
 

@@ -37,6 +37,11 @@ class ApplicationController < ActionController::Base
     session[:name]           ||= ""
     session[:street_address] ||= ""
     session[:postalcode] ||= ""
+
+    # Stage Checkout
+    # 1: Filling Shipping Information
+    # 2: Shipping Information and preparing submit payment
+    session[:stage] ||= 1
     # Not Used
     session[:province_updated] ||= false
 

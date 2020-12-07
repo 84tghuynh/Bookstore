@@ -1,9 +1,21 @@
 Rails.application.routes.draw do
+  # resources :checkout, only: %i[create destroy update index]
+
+  scope "/checkout" do
+    post  "create", to: "checkout#create", as: "checkout_create"
+    get   "success", to: "checkout#success", as: "checkout_success"
+    get   "cancel", to: "checkout#cancel", as: "checkout_cancel"
+
+    get   "index", to: "checkout#index", as: "checkout_index"
+    put   "update", to: "checkout#update", as: "checkout_update"
+  end
+
   get "orders/index"
   get "orders/show"
-  get "customers" => redirect("/")
-  resources :checkout, only: %i[create destroy update index]
+
   resources :cart, only: %i[create destroy update index]
+
+  get "customers" => redirect("/")
 
   devise_for :customers
   # get 'categories/index'

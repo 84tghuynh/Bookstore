@@ -1,19 +1,19 @@
-<h2 class="h2 text-success">Shipping</h2>
+<h2 class="h2 text-success">Shipping Infomation</h2>
 <div class="dropdown-divider"></div>
-<%= form_with url: checkout_path(province_checkout), method: :put do |f|%>
+<%= form_with url: checkout_update_path, method: :put do |f|%>
   <%= hidden_field_tag 'selected', 'none'  %>
   <div class="form-group">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email",
             value: "#{current_customer.present? ? current_customer.email : session[:email]}",
-            class: "form-control" %>
+            class: "form-control", :readonly =>  current_customer.present?, :required => true %>
   </div>
 
   <div class="form-group">
     <%= f.label :name %><br />
     <%= f.text_field :name,
           value: "#{current_customer.present? ? current_customer.name : session[:name]}",
-    class: "form-control" %>
+          class: "form-control", :required => true %>
   </div>
 
   <div class="form-group">
@@ -54,4 +54,6 @@
   {
      $("#selected").val("province");
   }
+
+
 </script>

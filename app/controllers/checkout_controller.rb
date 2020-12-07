@@ -1,11 +1,12 @@
 class CheckoutController < ApplicationController
+  def create; end
+
+  def success; end
+
+  def cancel; end
+
   def index
-    # unless session[:province_updated]
-    #  session[:province_checkout_id] = current_customer.province_id if current_customer.present?
-    # end
-
     @province = province_checkout
-
     # logger.debug("#########################: #{current_customer.email}")
   end
 
@@ -19,16 +20,35 @@ class CheckoutController < ApplicationController
     street_address = params[:street_address].to_s
     postalcode = params[:postalcode].to_s
 
-    session[:province_checkout_id] = province_id
+    if params[:selected] == "province"
+      session[:province_checkout_id] = province_id
 
-    session[:email]           = email
-    session[:name]            = name
-    session[:street_address]  = street_address
-    session[:postalcode] = postalcode
+      session[:email]           = email
+      session[:name]            = name
+      session[:street_address]  = street_address
+      session[:postalcode] = postalcode
+
+    end
 
     if params[:selected] == "none"
       # Update or Create Customer
-      create_customer(email, province_id, name, street_address, postalcode)
+      # create_customer(email, province_id, name, street_address, postalcode)
+      session[:province_checkout_id] = province_id
+
+      session[:email] = email
+      session[:name]            = name
+      session[:street_address]  = street_address
+      session[:postalcode] = postalcode
+
+      # Stage Checkout
+      # 1: Filling Shipping Information
+      # 2: Shipping Information and preparing submit payment
+      session[:stage] = 2
+    elsif params[:selected] == "edit"
+      # Stage Checkout
+      # 1: Filling Shipping Information
+      # 2: Shipping Information and preparing submit payment
+      session[:stage] = 1
     end
 
     redirect_to checkout_index_path
@@ -47,13 +67,21 @@ class CheckoutController < ApplicationController
         street_address: street_address,
         postalcode:     postalcode
       )
+
+      logger.debug("%%%%%%%%%%%%%%%%%%%%%%% UPDATE CUSTOMER: #{@customer}, name: #{@customer.name} =============================")
     else
       c = Customer.new(name:           name,
                        province_id:    province_id,
                        email:          email,
                        street_address: street_address,
                        postalcode:     postalcode)
+
+      c.skip_password_validation = true
       c.save
+
+      c.errors.full_messages.each do |message|
+        logger.debug("%%%%%%Error: #{message}  %%%%%%%%%%%%%%%")
+      end
 
       o = Order.new(gst:         0.3,
                     pst:         0.4,
@@ -62,9 +90,14 @@ class CheckoutController < ApplicationController
                     stage_id:    1)
 
       o.save
-
-      logger.debug("############ Create Customer: #{o}, email: #{o.gst}")
-
+      logger.debug("%%%%%%%%%%%%%%%%%%%%%%% ELSE Create Order: #{o}, name: #{o.gst} =============================")
     end
+
+    o = Stage.find(1).orders.create(gst:         0.3,
+                                    pst:         0.4,
+                                    hst:         0.5,
+                                    customer_id: 106)
+
+    logger.debug("%%%%%%%%%%%%%%%%%%%%%%% Create ORDER: -outside #{o}, gst: #{o.gst} =============================")
   end
 end
