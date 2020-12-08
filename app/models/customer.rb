@@ -6,6 +6,7 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :province
+  has_many :orders
 
   has_many :book_items
   has_many :books, through: :book_items
