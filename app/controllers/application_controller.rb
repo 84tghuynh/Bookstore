@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
 
     session[:order_id] ||= -1
 
+    session[:session_id] ||= ""
     # Stage Checkout
     # 1: Filling Shipping Information
     # 2: Shipping Information and preparing submit payment

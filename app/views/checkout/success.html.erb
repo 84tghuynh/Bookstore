@@ -4,6 +4,7 @@
       <div class="card-header">
             <hr class="my-4">
             <p class="display-4"> You paid successfully for the order  <%= @order.present? ? @order.id : " " %>.</p>
+            <p class="display-6"> SessionId <%= session[:session_id] %>.</p>
             <hr class="my-4">
           </div>
     </div>

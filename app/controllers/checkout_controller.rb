@@ -15,7 +15,10 @@ class CheckoutController < ApplicationController
     )
 
     # Perist data to Database
-    persist_data if @session.present?
+    if @session.present?
+      session[:session_id] = @session.id
+      persist_data
+    end
 
     respond_to do |format|
       format.js # Render app/view/checkout/create.js.erb
@@ -33,8 +36,6 @@ class CheckoutController < ApplicationController
     # Reset session
     session[:shopping_cart] = []
     session[:order_id] = -1
-
-
   end
 
   def cancel; end
