@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     # session[:province_updated] = false
     session[:province_checkout_id] = (current_customer.province_id if current_customer.present?)
+    session[:email] = (current_customer.email if current_customer.present?)
     root_path
   end
 
@@ -37,6 +38,8 @@ class ApplicationController < ActionController::Base
     session[:name]           ||= ""
     session[:street_address] ||= ""
     session[:postalcode] ||= ""
+
+    session[:order_id] ||= -1
 
     # Stage Checkout
     # 1: Filling Shipping Information

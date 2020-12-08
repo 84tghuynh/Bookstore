@@ -1,20 +1,41 @@
 class CheckoutController < ApplicationController
   # POST /checkout/create
   def create
+    if cart.count == 0
+      redirect_to root_path
+      return
+    end
     # Establish a connection with Stripe
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
       success_url:          checkout_success_url,
       cancel_url:           checkout_success_url,
-      line_items:           list_book_items_for_payment
+      line_items:           list_book_items_for_payment,
+      customer_email:       session[:email]
     )
+
+    # Perist data to Database
+    persist_data if @session.present?
 
     respond_to do |format|
       format.js # Render app/view/checkout/create.js.erb
     end
   end
 
-  def success; end
+  def success
+    @order = Order.find(session[:order_id])
+
+    if @order.present?
+      @order.update(
+        stage_id: 2
+      )
+    end
+    # Reset session
+    session[:shopping_cart] = []
+    session[:order_id] = -1
+
+
+  end
 
   def cancel; end
 
@@ -65,6 +86,65 @@ class CheckoutController < ApplicationController
     end
 
     redirect_to checkout_index_path
+  end
+
+  def persist_data
+    # Customer Infomation in Session
+    province_id = session[:province_checkout_id]
+    email = session[:email]
+    name = session[:name]
+    street_address = session[:street_address]
+    postalcode     = session[:postalcode]
+
+    customer = Customer.where(email: email).first
+
+    if customer.present?
+      customer.update(
+        province_id:    province_id,
+        name:           name,
+        street_address: street_address,
+        postalcode:     postalcode
+      )
+
+      logger.debug("%%%%%%%%%%%%%%%%%%%%%%% UPDATE CUSTOMER: #{customer}, name: #{customer.name} =============================")
+    else
+      customer = Customer.new(name:           name,
+                              province_id:    province_id,
+                              email:          email,
+                              street_address: street_address,
+                              postalcode:     postalcode)
+
+      customer.skip_password_validation = true
+      customer.save
+
+      customer.errors.full_messages.each do |message|
+        logger.debug("%%%%%%Error: #{message}  %%%%%%%%%%%%%%%")
+      end
+    end
+
+    # Create Order with Stage: new : 1
+    order = Stage.find(1).orders.create(
+      gst:         province_checkout.gst,
+      pst:         province_checkout.pst,
+      hst:         province_checkout.pst,
+      customer_id: customer.id
+    )
+
+    session[:order_id] = order.id
+
+    logger.debug("%%%%%%%%%%%%%%%%%%%%%%% Create ORDER: -outside #{order}, gst: #{order.gst} =============================")
+
+    # Persist items in Cart into BookItems
+    cart.map do |item|
+      BookItem.create(
+        book_id:     item[:book].id,
+        customer_id: customer.id,
+        price:       item[:book].price,
+        sales:       item[:book].sales,
+        quantity:    item[:quantity],
+        order_id:    order.id
+      )
+    end
   end
 
   def create_customer(email, province_id, name, street_address, postalcode)

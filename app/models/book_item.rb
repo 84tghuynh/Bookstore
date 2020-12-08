@@ -3,7 +3,7 @@ class BookItem < ApplicationRecord
   belongs_to :customer
   belongs_to :order
 
-  validates :price, :quantiy, presence: true
+  validates :price, :quantity, presence: true
   validates_associated :book
   validates_associated :customer
 end
