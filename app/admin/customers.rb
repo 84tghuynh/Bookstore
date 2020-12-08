@@ -37,6 +37,9 @@ ActiveAdmin.register Customer do
           column :pst
           column :hst
           column :stage
+          column :total_price
+          column :total_tax
+          column :grand_total
           column "Book_items" do |order|
             table_for order.book_items do
               column :book

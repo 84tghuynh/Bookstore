@@ -8,15 +8,15 @@ class CheckoutController < ApplicationController
     # Establish a connection with Stripe
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
-      success_url:          checkout_success_url,
-      cancel_url:           checkout_success_url,
+      success_url:          checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url:           checkout_cancel_url,
       line_items:           list_book_items_for_payment,
       customer_email:       session[:email]
     )
 
     # Perist data to Database
     if @session.present?
-      session[:session_id] = @session.id
+      # session[:session_id] = @session.id
       persist_data
     end
 
@@ -30,20 +30,34 @@ class CheckoutController < ApplicationController
       redirect_to root_path
       return
     end
+
+    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
     @order = Order.find(session[:order_id])
 
     if @order.present?
       @order.update(
         stage_id:  2,
-        stripe_id: session[:session_id]
+        stripe_id: @payment_intent.id
       )
     end
     # Reset session
     session[:shopping_cart] = []
     session[:order_id] = -1
+    # session[:session_id] = ""
   end
 
-  def cancel; end
+  def cancel
+    if session[:order_id] < 0
+      redirect_to root_path
+      return
+    end
+    # Delete the order
+    Order.find(session[:order_id]).destroy
+    session[:order_id] = -1
+    # session[:session_id] = ""
+  end
 
   def index
     @province = province_checkout
@@ -133,6 +147,9 @@ class CheckoutController < ApplicationController
       gst:         province_checkout.gst,
       pst:         province_checkout.pst,
       hst:         province_checkout.pst,
+      total_price: total_price,
+      total_tax:   total_tax,
+      grand_total: total_price_with_tax,
       customer_id: customer.id
     )
 

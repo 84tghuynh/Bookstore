@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :initialize_session
   helper_method :cart
-  helper_method :list_book_items, :list_book_items_for_payment
+  helper_method :list_book_items, :list_book_items_for_payment, :total_tax
   helper_method :items_quantity, :total_price, :total_price_with_tax, :province_checkout, :customer_checkout
 
   protected
@@ -41,6 +41,7 @@ class ApplicationController < ActionController::Base
 
     session[:order_id] ||= -1
 
+    # Not used
     session[:session_id] ||= ""
     # Stage Checkout
     # 1: Filling Shipping Information
@@ -143,6 +144,11 @@ class ApplicationController < ActionController::Base
 
   def total_price_with_tax
     total = 0
-    total = total_price + (total_price * (province_checkout.pst + province_checkout.gst + province_checkout.hst)).floor(2)
+    total = total_price + total_tax
+  end
+
+  def total_tax
+    total = 0
+    total = (total_price * (province_checkout.pst + province_checkout.gst + province_checkout.hst)).floor(2)
   end
 end

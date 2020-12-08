@@ -4,7 +4,8 @@
       <div class="card-header">
             <hr class="my-4">
             <p class="display-4"> You paid successfully for the order  <%= @order.present? ? @order.id : " " %>.</p>
-            <p class="display-6"> SessionId <%= session[:session_id] %>.</p>
+            <p class="display-6"> SessionId <%= @session.id %>.</p>
+            <p class="display-6"> Payment Intent ID <%= @payment_intent.id %>.</p>
             <hr class="my-4">
           </div>
     </div>
