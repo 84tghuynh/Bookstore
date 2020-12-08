@@ -29,7 +29,7 @@ class CartController < ApplicationController
     if params[:in_cart_detail].present?
       redirect_to cart_index_path
     else
-      redirect_to root_path
+      redirect_to book_path(id)
     end
   end
 

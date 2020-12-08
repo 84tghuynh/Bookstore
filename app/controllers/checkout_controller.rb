@@ -1,5 +1,18 @@
 class CheckoutController < ApplicationController
-  def create; end
+  # POST /checkout/create
+  def create
+    # Establish a connection with Stripe
+    @session = Stripe::Checkout::Session.create(
+      payment_method_types: ["card"],
+      success_url:          checkout_success_url,
+      cancel_url:           checkout_success_url,
+      line_items:           list_book_items_for_payment
+    )
+
+    respond_to do |format|
+      format.js # Render app/view/checkout/create.js.erb
+    end
+  end
 
   def success; end
 

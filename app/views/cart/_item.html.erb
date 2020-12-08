@@ -19,12 +19,12 @@
   </div>
   <div class="col-1">
   <% if book.sales > 0.0099%>
-    <p class="text-info">-<%= number_to_percentage(book.sales * 100, precision:0) %></p>
+    <p class="text-info">-<%= number_to_percentage(book.sales.floor(2) * 100, precision:0) %></p>
   <% end%>
   </div>
   <div class="col-2">
     <% if book.sales > 0.0099%>
-      <p class="text-info"><%= number_to_currency book.price * quantity * (1 - book.sales) %></p>
+      <p class="text-info"><%= number_to_currency book.price * quantity * (1 - book.sales.floor(2)) %></p>
     <% else %>
       <p class="text-info"><%= number_to_currency book.price * quantity %></p>
     <% end %>

@@ -1,5 +1,5 @@
 
-$('.dropdown-toggle').dropdown()
+
 
 
 

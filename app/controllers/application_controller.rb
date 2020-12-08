@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :initialize_session
   helper_method :cart
-  helper_method :list_book_items
+  helper_method :list_book_items, :list_book_items_for_payment
   helper_method :items_quantity, :total_price, :total_price_with_tax, :province_checkout, :customer_checkout
 
   protected
@@ -73,6 +73,39 @@ class ApplicationController < ActionController::Base
     Book.find(existing_item)
   end
 
+  def list_book_items_for_payment
+    list_item = []
+
+    cart.map do |item|
+      price = item[:book].price
+      if item[:book].sales.floor(2) > 0.0099
+        price = item[:book].price * (1 - item[:book].sales.floor(2))
+      end
+
+      book_item = {
+        name:        item[:book].title,
+        description: item[:book].isbn,
+        amount:      (price * 100).to_i,
+        currency:    "cad",
+        quantity:    item[:quantity]
+      }
+
+      list_item << book_item
+    end
+
+    taxes_item = {
+      name:        "Taxes",
+      description: "GST, PST, HST",
+      amount:      ((total_price * (province_checkout.pst + province_checkout.gst + province_checkout.hst)).floor(2) * 100).to_i,
+      currency:    "cad",
+      quantity:    1
+    }
+
+    list_item << taxes_item
+
+    list_item
+  end
+
   def items_quantity
     quantity = 0
     session[:shopping_cart].map do |item|
@@ -87,7 +120,7 @@ class ApplicationController < ActionController::Base
       @book = Book.find(item["id"])
 
       total = if @book.sales > 0.0099
-                total + item["quantity"] * @book.price * (1 - @book.sales)
+                total + item["quantity"] * @book.price * (1 - @book.sales.floor(2))
               else
                 total + item["quantity"] * @book.price
               end
@@ -106,6 +139,6 @@ class ApplicationController < ActionController::Base
 
   def total_price_with_tax
     total = 0
-    total = total_price + total_price * (province_checkout.pst + province_checkout.gst + province_checkout.hst)
+    total = total_price + (total_price * (province_checkout.pst + province_checkout.gst + province_checkout.hst)).floor(2)
   end
 end

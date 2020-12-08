@@ -18,7 +18,7 @@
   </div>
   <div class="col-3">
     <% if book.sales > 0.0099%>
-      <p class="text-info text-right"><%= number_to_currency book.price * quantity * (1 - book.sales) %></p>
+      <p class="text-info text-right"><%= number_to_currency book.price * quantity * (1 - book.sales.floor(2)) %></p>
     <% else %>
       <p class="text-info text-right"><%= number_to_currency book.price * quantity %> </p>
     <% end %>

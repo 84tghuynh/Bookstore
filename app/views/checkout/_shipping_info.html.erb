@@ -1,21 +1,28 @@
 <h2 class="h2 text-success">Shipping Infomation</h2>
 <div class="dropdown-divider"></div>
-<div class="jumbotron">
-  <h1 class="display-4">Hello, world!</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <%= form_with url: checkout_update_path, method: :put do%>
-    <%= hidden_field_tag 'selected', 'edit'  %>
-    <%= button_tag 'Edit', class:"btn btn-success"%>
-  <%end%>
-
-  <hr class="my-4">
-
-  <%= form_with url: checkout_create_path, method: :put do%>
-    <%= button_tag 'Submit', class:"btn btn-primary"%>
-  <%end%>
+<div class="card-header">
+    <%= form_with url: checkout_update_path, method: :put do%>
+      <%= hidden_field_tag 'selected', 'edit'  %>
+      <%= button_tag 'Edit', class:"btn btn-success"%>
+    <%end%>
+    <hr class="my-4">
+    <p><span class="font-weight-bold">Email:</span> <%= session[:email] %></p>
+    <p><span class="font-weight-bold">Name:</span> <%= session[:name] %></p>
+    <p><span class="font-weight-bold">Street address:</span> <%= session[:street_address] %></p>
+    <p><span class="font-weight-bold">Postal code:</span> <%= session[:postalcode] %></p>
+    <hr class="my-4">
+    <%= form_with url: checkout_create_path, method: :post do%>
+      <%= button_tag 'Pay now', class:"btn btn-primary font-weight-bold"%>
+    <%end%>
 </div>
+
+
+
+
+
+
+
+
 
 
 

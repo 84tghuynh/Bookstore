@@ -53,13 +53,24 @@
 
       <% if @book.sales > 0.0099%>
         <h6 class="h6 text-dark">On Sales:</h6>
-        <p class="text-info"><%= number_to_percentage(@book.sales * 100, precision:0) %></p>
+        <p class="text-info"><%= number_to_percentage(@book.sales.floor(2) * 100, precision:0) %></p>
       <% end%>
 
       <div class="dropdown-divider"></div>
-      <%= form_with url: cart_index_path do%>
-          <%= hidden_field_tag(:id, @book.id) %>
-          <%= button_tag 'Add to Cart', class:"btn btn-primary mt-sm-2"%>
+      <%# <%= form_with url: cart_index_path do%>
+          <%# <%= hidden_field_tag(:id, @book.id) %>
+          <%# <%= button_tag 'Add to Cart', class:"btn btn-primary mt-sm-2"%>
+      <%# <% end %>
+
+      <% if list_book_items.include?(@book) %>
+        <%= button_to cart_path(@book), method: :delete,  class:"btn btn-primary mt-sm-2" do %>
+            Remove from Cart
+        <% end %>
+      <% else %>
+          <%= form_with url: cart_index_path, method: :post do%>
+              <%= hidden_field_tag("id", @book.id, :id => @book.id  ) %>
+              <%= button_tag 'Add to Cart', class:"btn btn-primary mt-sm-2"%>
+          <% end %>
       <% end %>
 
     </div>
