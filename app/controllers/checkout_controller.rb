@@ -26,11 +26,16 @@ class CheckoutController < ApplicationController
   end
 
   def success
+    if session[:order_id] < 0
+      redirect_to root_path
+      return
+    end
     @order = Order.find(session[:order_id])
 
     if @order.present?
       @order.update(
-        stage_id: 2
+        stage_id:  2,
+        stripe_id: session[:session_id]
       )
     end
     # Reset session
