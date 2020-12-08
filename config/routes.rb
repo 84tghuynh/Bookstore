@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'customers/show'
   # resources :checkout, only: %i[create destroy update index]
 
   scope "/checkout" do

@@ -26,7 +26,7 @@ class CheckoutController < ApplicationController
   end
 
   def success
-    if session[:order_id] < 0
+    if session[:order_id] < 0 || params[:session_id].nil?
       redirect_to root_path
       return
     end

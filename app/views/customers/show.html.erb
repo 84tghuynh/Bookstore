@@ -1,0 +1,85 @@
+<div class="container pb-5">
+
+  <div class="row bg-secondary text-white font-weight-bold">
+    <div class="col-1">
+      Order
+    </div>
+    <div class="col-2">
+      Price Total
+    </div>
+    <div class="col-2">
+      Taxes Total
+    </div>
+    <div class="col-2">
+      Grand Total
+    </div>
+    <div class="col-1">
+      State
+    </div>
+    <div class="col-4">
+
+    </div>
+  </div>
+
+  <% @orders.map do |order| %>
+    <div class="row">
+      <div class="col-1">
+        <%= order.id%>
+      </div>
+
+      <div class="col-2">
+        <%= number_to_currency order.total_price%>
+      </div>
+
+      <div class="col-2">
+        <%= number_to_currency order.total_tax %>
+      </div>
+
+      <div class="col-2">
+        <%= number_to_currency order.grand_total %>
+      </div>
+
+      <div class="col-1">
+        <%= order.stage.name %>
+      </div>
+
+      <div class="col-4">
+          <div class="row bg-light text-dark font-weight-bold">
+            <div class="col-5">
+              Title
+            </div>
+            <div class="col-2">
+              Qty
+            </div>
+            <div class="col-2">
+              Sales
+            </div>
+            <div class="col-3 text-right">
+              Price
+            </div>
+          </div>
+          <% order.book_items.map do |book_item|%>
+            <div class="row">
+              <div class="col-5">
+                <%= book_item.book.title %>
+              </div>
+              <div class="col-2 text-center">
+                <%= book_item.quantity %>
+              </div>
+              <div class="col-2">
+                -<%= number_to_percentage(book_item.sales.floor(2) * 100, precision:0) %>
+              </div>
+              <div class="col-3 text-right">
+                <%= number_to_currency book_item.price %>
+              </div>
+            </div>
+            <hr class="my-4">
+          <%end %>
+      </div>
+    </div>
+    <hr class="my-4">
+  <% end %>
+</div>
+
+
+
