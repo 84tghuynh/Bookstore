@@ -25,7 +25,7 @@
         </div>
       <% end %>
 
-        <% @books.each_slice(4) do |batch| %>
+        <% @books.each_slice(3) do |batch| %>
           <div class="row my-2">
               <%batch.each do | book | %>
                 <%= render partial: 'book',  locals: { book: book }  %>

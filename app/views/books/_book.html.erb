@@ -1,11 +1,11 @@
-<div class= "col-md-3 my-2">
-    <div class="card">
+<div class= "col-md-4 my-2">
+    <div class="card h-100">
       <% if book.cover_s != ''%>
-        <%=link_to image_tag(book.cover_m, class: "card-img-top rounded", alt:"Cover Small Image") , book %>
+        <%=link_to image_tag(book.cover_m, class: "card-img-top rounded ", style:"height:18vw; object-fit:cover", alt:"Cover Small Image") , book %>
       <% else %>
-        <%=link_to image_tag("no_image.png", class: "card-img-top rounded", alt:"No Image") , book %>
+        <%=link_to image_tag("no_image.png", class: "card-img-top rounded", style:"height:18vw; object-fit:cover", alt:"No Image") , book %>
       <% end %>
-      <div class="card-body ">
+      <div class="card-body d-flex flex-column h-90">
         <h6 class="card-title text-uppercase"><%=link_to book.title, book ,class:"text-success" %></h6>
         <div class="card-text normal"><span class="font-weight-bold">Price:</span> <%= number_to_currency book.price %></div>
         <% if book.sales > 0.0099%>
@@ -33,25 +33,13 @@
               <%# Remove from Cart %>
           <%# <% end %>
         <% else %>
+          <div class="align-self-begin" style="margin-top:auto;">
             <%= form_with url: cart_index_path, method: :post do%>
                 <%= hidden_field_tag("id", book.id, :id => book.id  ) %>
                 <%= button_tag 'Add to Cart', class:"btn btn-primary mt-sm-2"%>
             <% end %>
+          </div>
         <% end %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </div>
     </div>
 </div>
