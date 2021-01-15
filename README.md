@@ -1,24 +1,17 @@
 # README
+CLONE & INSTALLATION
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+git clone git@github.com:84tghuynh/Bookstore.git
 
-Things you may want to cover:
+bundle install
 
-* Ruby version
+yarn install --check-files
 
-* System dependencies
+rake db:drop
 
-* Configuration
+rake: db:create
 
-* Database creation
+rake db:migrate
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
+rails s --binding=YOUR_IP_ADDRESS
 
