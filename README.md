@@ -1,5 +1,5 @@
 # README
-CLONE & INSTALLATION
+CLONE & INSTALLATION.
 
 git clone git@github.com:84tghuynh/Bookstore.git
 
